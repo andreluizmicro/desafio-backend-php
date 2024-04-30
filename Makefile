@@ -12,15 +12,14 @@ docker-down:
 docker-bash:
 	 docker compose exec app bash
 
+docker-format: docker-up
+	docker exec -t $(CONTAINER_NAME) composer format
+
 docker-test:
 ifdef FILTER
-	make docker-up-all
-	make docker-clear
-	docker exec -t $(CONTAINER_NAME) composer unit-test -- --filter="$(FILTER)"
+	docker exec -t $(CONTAINER_NAME) php artisan test --env=test --filter="$(FILTER)"
 else
-	make docker-up-all
-	make docker-clear
-	docker exec -t $(CONTAINER_NAME) composer unit-test
+	docker exec -t $(CONTAINER_NAME) php artisan test
 endif
 
 docker-up-all:
@@ -28,3 +27,6 @@ docker-up-all:
 
 docker-migrate:
 	docker exec $(CONTAINER_NAME) php -d memory_limit=-1 artisan migrate
+
+docker-test-coverage: docker-up
+	docker exec $(CONTAINER_NAME) composer test-coverage-html
