@@ -7,6 +7,7 @@ namespace Core\Application\Transfer\Create;
 use Core\Domain\Adapter\UnitOfWorkAdapterInterface;
 use Core\Domain\Entity\Account;
 use Core\Domain\Entity\Transfer;
+use Core\Domain\Exception\AccountException;
 use Core\Domain\Exception\TransferException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
 use Core\Domain\Gateway\NotificationGatewayInterface;
@@ -28,9 +29,14 @@ class CreateTransferService
 
     /**
      * @throws TransferException
+     * @throws AccountException
      */
     public function execute(Input $input): Output
     {
+        if ($this->isInvalidTransaction($input)) {
+            throw AccountException::invalidTransaction();
+        }
+
         try {
             $payer = $this->accountRepository->findByUserId(new Id($input->payerId));
             $payee = $this->accountRepository->findByUserId(new Id($input->payeeId));
@@ -67,5 +73,10 @@ class CreateTransferService
     {
         $this->accountRepository->updateUserBalance($payer);
         $this->accountRepository->updateUserBalance($payee);
+    }
+
+    private function isInvalidTransaction(Input $input): bool
+    {
+        return $input->payerId === $input->payeeId;
     }
 }

@@ -7,8 +7,6 @@ namespace Tests\Unit\Application\Transfer\Create;
 use Core\Application\Transfer\Create\CreateTransferService;
 use Core\Application\Transfer\Create\Input;
 use Core\Domain\Adapter\UnitOfWorkAdapterInterface;
-use Core\Domain\Entity\Account;
-use Core\Domain\Entity\User;
 use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
 use Core\Domain\Gateway\NotificationGatewayInterface;
@@ -29,12 +27,6 @@ class CreateTransferServiceTest extends TestCase
     private NotificationGatewayInterface $notificationGatewayMock;
 
     private UnitOfWorkAdapterInterface $unitOfWorkAdapterMock;
-
-    private User $payerMock;
-
-    private User $payeeMock;
-
-    private Account $accountMock;
 
     protected function setUp(): void
     {

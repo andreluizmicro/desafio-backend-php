@@ -7,6 +7,7 @@ use Core\Domain\Exception\NotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -39,6 +40,17 @@ class Handler extends ExceptionHandler
 
         if ($exception instanceof AlreadyExistsException) {
             return $this->showError($exception->getMessage(), Response::HTTP_CONFLICT);
+        }
+
+        if ($exception instanceof ValidationException) {
+            return response()->json(
+                [
+                    'errors' => [
+                        'error' => [$exception->getMessage()],
+                    ],
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
+            );
         }
 
         return parent::render($request, $exception);

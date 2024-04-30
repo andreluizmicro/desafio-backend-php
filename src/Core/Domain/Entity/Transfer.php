@@ -41,10 +41,6 @@ class Transfer
         if ($this->isInvalidPayer()) {
             throw AccountException::invalidPayer();
         }
-
-        if ($this->payer->id->value === $this->payee->id->value) {
-            throw AccountException::invalidTransaction();
-        }
     }
 
     private function isInvalidPayer(): bool

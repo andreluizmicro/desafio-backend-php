@@ -69,7 +69,7 @@ class User
             cpf: new Cpf($data['cpf']),
             email: new Email($data['email']),
             password: new Password($data['password']),
-            userType: UserType::tryFrom($data['user_type_id']),
+            userType: UserType::tryFrom($data['user_type_id']) ?? 1,
             id: is_null($id) ? $id : new Id($id),
             cnpj: $data['cnpj'] ? new Cnpj($data['cnpj']) : null,
         );

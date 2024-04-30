@@ -18,17 +18,17 @@ class CreateTransferFormRequest extends FormRequest
     {
         return [
             'value' => ['required'],
-            'payer' => ['required'],
-            'payee' => ['required'],
+            'payer' => 'required|different:payee',
+            'payee' => 'required|numeric',
         ];
     }
 
     public function toDto(): Input
     {
         return new Input(
-            value: $this->request->get('value'),
-            payerId: $this->request->get('payer'),
-            payeeId: $this->request->get('payee')
+            value: $this->validated('value'),
+            payerId: $this->validated('payer'),
+            payeeId: $this->validated('payee')
         );
     }
 }

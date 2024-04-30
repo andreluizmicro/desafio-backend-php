@@ -80,29 +80,6 @@ class TransferTest extends TestCase
         );
     }
 
-    public function testShouldReturnAccountExceptionWithInvalidTransaction(): void
-    {
-        $this->expectException(AccountException::class);
-
-        $payer = new Account(
-            user: $this->payerUser,
-            balance: 100,
-        );
-        $payer->id = new Id(1);
-
-        $payee = new Account(
-            user: $this->payeeUser,
-            balance: 100,
-        );
-        $payee->id = new Id(1);
-
-        new Transfer(
-            value: 100,
-            payer: $payer,
-            payee: $payee,
-        );
-    }
-
     private function getUserDataProvider(int $id, int $userTypeId, ?string $cnj = null): array
     {
         return [

@@ -32,7 +32,7 @@ class CreateAccountServiceTest extends TestCase
             'email' => 'andre@gmail.com',
             'password' => '1@@#aass$$s2@A',
             'cpf' => '157.440.700-79',
-            'userType' => 1,
+            'usert_type_id' => 1,
             'id' => 2,
             'cnpj' => null,
         ]);
