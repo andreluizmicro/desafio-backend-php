@@ -45,10 +45,4 @@ class CreateUserServiceTest extends TestCase
         $output = $createUserService->execute($inputMock);
         $this->assertEquals(1, $output->id);
     }
-
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
-    }
 }

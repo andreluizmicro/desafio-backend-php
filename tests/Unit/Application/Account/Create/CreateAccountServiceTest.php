@@ -32,7 +32,7 @@ class CreateAccountServiceTest extends TestCase
             'email' => 'andre@gmail.com',
             'password' => '1@@#aass$$s2@A',
             'cpf' => '157.440.700-79',
-            'usert_type_id' => 1,
+            'user_type_id' => 1,
             'id' => 2,
             'cnpj' => null,
         ]);
@@ -79,11 +79,5 @@ class CreateAccountServiceTest extends TestCase
         );
 
         $createAccountService->execute(new Input(1));
-    }
-
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
     }
 }

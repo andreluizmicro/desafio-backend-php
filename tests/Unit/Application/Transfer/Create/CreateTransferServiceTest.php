@@ -7,6 +7,9 @@ namespace Tests\Unit\Application\Transfer\Create;
 use Core\Application\Transfer\Create\CreateTransferService;
 use Core\Application\Transfer\Create\Input;
 use Core\Domain\Adapter\UnitOfWorkAdapterInterface;
+use Core\Domain\Entity\Account;
+use Core\Domain\Entity\User;
+use Core\Domain\Exception\AccountException;
 use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
 use Core\Domain\Gateway\NotificationGatewayInterface;
@@ -39,13 +42,86 @@ class CreateTransferServiceTest extends TestCase
         $this->unitOfWorkAdapterMock = Mockery::mock(UnitOfWorkAdapterInterface::class);
     }
 
+    public function testShouldCreateTransfer(): void
+    {
+        $user = User::createUserFactory([
+            'name' => 'André Luiz',
+            'email' => 'andre@gmail.com',
+            'password' => '1@@#aass$$s2@A',
+            'cpf' => '157.440.700-79',
+            'user_type_id' => 1,
+            'id' => 2,
+            'cnpj' => null,
+        ]);
+
+        $accountMock = Mockery::mock(Account::class, [
+            $user,
+            500,
+        ]);
+
+        $accountMock
+            ->shouldReceive('creditAccount')
+            ->once();
+
+        $accountMock
+            ->shouldReceive('debitAccount')
+            ->once();
+
+        $this->accountRepositoryMock
+            ->shouldReceive('findByUserId')
+            ->times(2)
+            ->andReturn($accountMock);
+
+        $this->authorizationGatewayMock
+            ->shouldReceive('authorizeTransfer')
+            ->once();
+
+        $this->unitOfWorkAdapterMock
+            ->shouldReceive('begin')
+            ->once();
+
+        $this->transferRepositoryMock
+            ->shouldReceive('create')
+            ->once()
+            ->andReturn(1);
+
+        $this->accountRepositoryMock
+            ->shouldReceive('updateUserBalance')
+            ->times(2);
+
+        $this->notificationGatewayMock
+            ->shouldReceive('notify')
+            ->once();
+
+        $this->unitOfWorkAdapterMock
+            ->shouldReceive('commit')
+            ->once();
+
+        $createTransferService = new CreateTransferService(
+            $this->accountRepositoryMock,
+            $this->transferRepositoryMock,
+            $this->authorizationGatewayMock,
+            $this->notificationGatewayMock,
+            $this->unitOfWorkAdapterMock,
+        );
+
+        $output = $createTransferService->execute(
+            new Input(
+                value: 100,
+                payerId: 1,
+                payeeId: 2
+            )
+        );
+
+        $this->assertEquals(1, $output->transferId);
+    }
+
     public function testShouldRollbackTransaction(): void
     {
         $this->expectException(Exception::class);
 
         $this->accountRepositoryMock
             ->shouldReceive('findByUserId')
-            ->once()
             ->andThrow(new NotFoundException());
 
         $this->unitOfWorkAdapterMock
@@ -69,9 +145,24 @@ class CreateTransferServiceTest extends TestCase
         );
     }
 
-    protected function tearDown(): void
+    public function testShouldReturnAccountExceptionWithInvalidTransaction(): void
     {
-        Mockery::close();
-        parent::tearDown();
+        $this->expectException(AccountException::class);
+
+        $createTransferService = new CreateTransferService(
+            $this->accountRepositoryMock,
+            $this->transferRepositoryMock,
+            $this->authorizationGatewayMock,
+            $this->notificationGatewayMock,
+            $this->unitOfWorkAdapterMock,
+        );
+
+        $createTransferService->execute(
+            new Input(
+                value: 100,
+                payerId: 1,
+                payeeId: 1
+            )
+        );
     }
 }

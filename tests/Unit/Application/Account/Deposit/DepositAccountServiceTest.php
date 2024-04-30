@@ -22,7 +22,7 @@ class DepositAccountServiceTest extends TestCase
             'email' => 'andre@gmail.com',
             'password' => '1@@#aass$$s2@A',
             'cpf' => '157.440.700-79',
-            'userType' => 1,
+            'user_type_id' => 1,
             'id' => 2,
             'cnpj' => null,
         ]);
@@ -54,11 +54,5 @@ class DepositAccountServiceTest extends TestCase
         );
         $output = $depositAccount->execute(new Input(1, 100));
         $this->assertTrue($output->success);
-    }
-
-    protected function tearDown(): void
-    {
-        Mockery::close();
-        parent::tearDown();
     }
 }
