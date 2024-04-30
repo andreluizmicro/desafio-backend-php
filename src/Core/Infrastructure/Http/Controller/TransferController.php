@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api;
+namespace Core\Infrastructure\Http\Controller;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Transfer\CreateTransferFormRequest;
 use Core\Application\Transfer\Create\CreateTransferService;
+use Core\Infrastructure\Http\Request\Transfer\CreateTransferFormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Throwable;

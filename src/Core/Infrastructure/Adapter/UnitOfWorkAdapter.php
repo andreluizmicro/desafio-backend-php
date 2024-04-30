@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Adapter;
+namespace Core\Infrastructure\Adapter;
 
 use Core\Domain\Adapter\UnitOfWorkAdapterInterface;
 use Illuminate\Support\Facades\DB;

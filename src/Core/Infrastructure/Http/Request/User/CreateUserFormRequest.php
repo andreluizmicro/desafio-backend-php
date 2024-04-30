@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\User;
+namespace Core\Infrastructure\Http\Request\User;
 
 use Core\Application\User\Create\Input;
 use Illuminate\Foundation\Http\FormRequest;

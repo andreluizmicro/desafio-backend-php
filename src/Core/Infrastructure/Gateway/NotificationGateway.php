@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Gateway;
+namespace Core\Infrastructure\Gateway;
 
-use App\Client\NotificationClient;
 use Core\Domain\Exception\NotifyException;
 use Core\Domain\Gateway\NotificationGatewayInterface;
+use Core\Infrastructure\Client\NotificationClient;
 use Illuminate\Http\Response;
 use Throwable;
 

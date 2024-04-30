@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Mysql;
+namespace Core\Infrastructure\Repository\Mysql;
 
-use App\Models\Account as AccountModel;
 use Core\Domain\Entity\Account;
 use Core\Domain\Entity\User;
 use Core\Domain\Exception\AccountException;
@@ -19,6 +18,7 @@ use Core\Domain\Exception\PasswordException;
 use Core\Domain\Exception\PersonException;
 use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\ValueObject\Id;
+use Core\Infrastructure\Repository\Models\Account as AccountModel;
 use Throwable;
 
 class AccountRepository implements AccountRepositoryInterface

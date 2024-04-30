@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Transfer;
+namespace Core\Infrastructure\Http\Request\Transfer;
 
 use Core\Application\Transfer\Create\Input;
 use Illuminate\Foundation\Http\FormRequest;

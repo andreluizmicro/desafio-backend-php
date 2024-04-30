@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api;
+namespace Core\Infrastructure\Http\Controller;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\User\CreateUserFormRequest;
 use Core\Application\User\Create\CreateUserService;
 use Core\Domain\Exception\UserException;
+use Core\Infrastructure\Http\Request\User\CreateUserFormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 

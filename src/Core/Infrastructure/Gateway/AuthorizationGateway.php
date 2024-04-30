@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Gateway;
+namespace Core\Infrastructure\Gateway;
 
-use App\Client\AuthorizationClient;
 use Core\Domain\Enum\Authorization;
 use Core\Domain\Exception\AuthorizationException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
+use Core\Infrastructure\Client\AuthorizationClient;
 use Illuminate\Http\Response;
 use Throwable;
 

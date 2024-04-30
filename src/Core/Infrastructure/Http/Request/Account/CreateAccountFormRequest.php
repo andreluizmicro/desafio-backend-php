@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests\Account;
+namespace Core\Infrastructure\Http\Request\Account;
 
-use Core\Application\Account\Deposit\Input;
+use Core\Application\Account\Create\Input;
 use Illuminate\Foundation\Http\FormRequest;
 
-class DepositAccountFormRequest extends FormRequest
+class CreateAccountFormRequest extends FormRequest
 {
     public function authorize(): bool
     {
@@ -17,15 +17,14 @@ class DepositAccountFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'value' => ['required'],
+            'user_id' => ['required'],
         ];
     }
 
     public function toDto(): Input
     {
         return new Input(
-            accountId: (int) $this->route('account_id'),
-            value: $this->request->get('value'),
+            userId: $this->request->get('user_id')
         );
     }
 }

@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Mysql;
+namespace Core\Infrastructure\Repository\Mysql;
 
-use App\Models\User as UserModel;
 use Core\Domain\Entity\User;
 use Core\Domain\Exception\CnpjException;
 use Core\Domain\Exception\CpfException;
@@ -16,6 +15,7 @@ use Core\Domain\Exception\PersonException;
 use Core\Domain\Exception\UserException;
 use Core\Domain\Repository\UserRepositoryInterface;
 use Core\Domain\ValueObject\Id;
+use Core\Infrastructure\Repository\Models\User as UserModel;
 use Throwable;
 
 class UserRepository implements UserRepositoryInterface

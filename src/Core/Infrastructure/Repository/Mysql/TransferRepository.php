@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Mysql;
+namespace Core\Infrastructure\Repository\Mysql;
 
-use App\Models\Transfer as TransferModel;
 use Core\Domain\Entity\Transfer;
 use Core\Domain\Repository\TransferRepositoryInterface;
+use Core\Infrastructure\Repository\Models\Transfer as TransferModel;
 
 class TransferRepository implements TransferRepositoryInterface
 {

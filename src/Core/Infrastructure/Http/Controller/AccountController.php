@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api;
+namespace Core\Infrastructure\Http\Controller;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Account\CreateAccountFormRequest;
-use App\Http\Requests\Account\DepositAccountFormRequest;
 use Core\Application\Account\Create\CreateAccountService;
 use Core\Application\Account\Deposit\DepositAccountService;
 use Core\Domain\Exception\UserException;
+use Core\Infrastructure\Http\Request\Account\CreateAccountFormRequest;
+use Core\Infrastructure\Http\Request\Account\DepositAccountFormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Throwable;
