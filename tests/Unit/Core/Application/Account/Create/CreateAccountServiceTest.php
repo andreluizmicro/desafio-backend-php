@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Account\Create;
+namespace Tests\Unit\Core\Application\Account\Create;
 
 use Core\Application\Account\Create\CreateAccountService;
 use Core\Application\Account\Create\Input;

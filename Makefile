@@ -30,3 +30,7 @@ docker-migrate:
 
 docker-test-coverage: docker-up
 	docker exec $(CONTAINER_NAME) composer test-coverage-html
+
+generate-openapi-from-postman:
+	sudo npm i postman-to-openapi -g
+	sudo p2o ./docs/collection_postman.json -f ./docs/openapi.yml -o ./docs/openapi-options.json

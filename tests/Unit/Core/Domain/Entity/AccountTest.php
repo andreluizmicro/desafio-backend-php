@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\Entity;
+namespace Tests\Unit\Core\Domain\Entity;
 
 use Core\Domain\Entity\Account;
 use Core\Domain\Entity\User;

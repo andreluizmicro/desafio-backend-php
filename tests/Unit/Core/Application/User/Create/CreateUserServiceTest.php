@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\User\Create;
+namespace Tests\Unit\Core\Application\User\Create;
 
 use Core\Application\User\Create\CreateUserService;
 use Core\Application\User\Create\Input;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\ValueObject;
+namespace Tests\Unit\Core\Domain\ValueObject;
 
 use Core\Domain\Exception\EmailException;
 use Core\Domain\ValueObject\Email;

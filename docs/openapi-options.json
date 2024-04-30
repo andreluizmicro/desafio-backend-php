@@ -1,0 +1,19 @@
+{
+    "servers": [
+        {
+            "url": "http://localhost:8000",
+            "description": "Local"
+        },
+        {
+            "url": "transfer-microservice-api",
+            "description": "Stage"
+        },
+        {
+            "url": "transfer-microservice-api",
+            "description": "Production"
+        }
+    ],
+    "disabledParams": {
+        "includeQuery": true
+    }
+}

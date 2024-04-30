@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Account\Deposit;
+namespace Tests\Unit\Core\Application\Account\Deposit;
 
 use Core\Application\Account\Deposit\DepositAccountService;
 use Core\Application\Account\Deposit\Input;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Application\Transfer\Create;
+namespace Tests\Unit\Core\Application\Transfer\Create;
 
 use Core\Application\Transfer\Create\CreateTransferService;
 use Core\Application\Transfer\Create\Input;

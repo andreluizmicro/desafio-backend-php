@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Domain\ValueObject;
+namespace Tests\Unit\Core\Domain\ValueObject;
 
 use Core\Domain\Exception\PasswordException;
 use Core\Domain\ValueObject\Password;
