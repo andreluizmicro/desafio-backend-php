@@ -20,7 +20,6 @@ class AccountTest extends TestCase
         $this->user = User::createUserFactory(
             $this->getUserDataProvider()
         );
-
     }
 
     public function testShouldCreateNewAccount(): void

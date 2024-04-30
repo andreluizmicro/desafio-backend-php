@@ -16,7 +16,7 @@ class Account
      */
     public function __construct(
         public User $user,
-        public float $balance,
+        public ?float $balance = self::MIN_BALANCE,
         public ?Id $id = null,
     ) {
         $this->id = $this->id ?? null;
