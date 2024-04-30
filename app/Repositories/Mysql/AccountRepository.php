@@ -60,24 +60,6 @@ class AccountRepository implements AccountRepositoryInterface
         }
     }
 
-    /**
-     * @throws NotFoundException
-     */
-    public function findByUserId(Id $userId): Account
-    {
-        try {
-            $data = $this->model
-                ->with('user')
-                ->where('user_id', $userId->value)
-                ->get()
-                ->first();
-
-            return $this->modelToEntity($data);
-        } catch (Throwable $th) {
-            throw new NotFoundException('User not found');
-        }
-    }
-
     public function updateUserBalance(Account $account): void
     {
         $this->model->where('id', $account->id->value)->update(['balance' => $account->balance]);

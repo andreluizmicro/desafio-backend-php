@@ -38,8 +38,8 @@ class CreateTransferService
         }
 
         try {
-            $payer = $this->accountRepository->findByUserId(new Id($input->payerId));
-            $payee = $this->accountRepository->findByUserId(new Id($input->payeeId));
+            $payer = $this->accountRepository->findById(new Id($input->payerId));
+            $payee = $this->accountRepository->findById(new Id($input->payeeId));
 
             $transfer = new Transfer(
                 value: $input->value,

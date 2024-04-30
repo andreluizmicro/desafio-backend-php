@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Core\Domain\Exception;
 
-class CpfException extends DomainException
+class CpfException extends UserException
 {
     public static function invalidCpf(string $number): self
     {

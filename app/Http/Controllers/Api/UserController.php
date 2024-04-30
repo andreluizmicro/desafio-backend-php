@@ -21,8 +21,7 @@ class UserController extends Controller
     public function create(CreateUserFormRequest $request): JsonResponse
     {
         try {
-            $input = $request->toDto();
-            $userId = $this->createUserService->execute($input);
+            $userId = $this->createUserService->execute($request->toDto());
 
             return response()->json($userId, Response::HTTP_CREATED);
         } catch (UserException $exception) {

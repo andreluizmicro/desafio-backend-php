@@ -29,12 +29,12 @@ class CreateUserFormRequest extends FormRequest
     public function toDto(): Input
     {
         return new Input(
-            name: $this->request->get('name'),
-            email: $this->request->get('email'),
-            cpf: $this->request->get('cpf'),
-            password: $this->request->get('password'),
-            userTypeId: $this->request->get('user_type_id'),
-            cnpj: $this->request->get('cnpj'),
+            name: $this->validated('name'),
+            email: $this->validated('email'),
+            cpf: $this->validated('cpf'),
+            password: $this->validated('password'),
+            userTypeId: $this->validated('user_type_id'),
+            cnpj: $this->validated('cnpj'),
         );
     }
 }

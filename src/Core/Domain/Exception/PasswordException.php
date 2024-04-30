@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Domain\Exception;
 
-class PasswordException extends DomainException
+class PasswordException extends UserException
 {
     public static function invalidPassword(string $value): self
     {

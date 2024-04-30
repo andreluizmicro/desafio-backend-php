@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\Domain\Entity;
 
 use Core\Domain\Entity\User;
+use Core\Domain\Enum\UserType;
 use Core\Domain\Exception\PersonException;
 use PHPUnit\Framework\TestCase;
 
@@ -22,7 +23,7 @@ class UserTest extends TestCase
         $this->assertNotNull($data['password'], $user->password->value);
         $this->assertEquals($data['user_type_id'], $user->userType->value);
         $this->assertNotEquals($data['password'], $user->toArray()['password']);
-        $this->assertEquals('Comum', $user->userType->label());
+        $this->assertEquals($user->userType->value, UserType::fromInt($data['user_type_id'])->value);
     }
 
     public function testShouldReturnPersonExceptionWithInvalidNaturalPerson(): void

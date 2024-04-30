@@ -21,11 +21,6 @@ interface AccountRepositoryInterface
      */
     public function findById(Id $id): Account;
 
-    /**
-     * @throws NotFoundException
-     */
-    public function findByUserId(Id $userId): Account;
-
     public function updateUserBalance(Account $account): void;
 
     public function existsById(Id $id): bool;

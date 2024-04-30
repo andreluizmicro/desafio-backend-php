@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Core\Domain\Exception;
 
-class NameException extends DomainException
+class NameException extends UserException
 {
     public static function invalidName(string $name): self
     {

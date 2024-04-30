@@ -68,7 +68,7 @@ class CreateTransferServiceTest extends TestCase
             ->once();
 
         $this->accountRepositoryMock
-            ->shouldReceive('findByUserId')
+            ->shouldReceive('findById')
             ->times(2)
             ->andReturn($accountMock);
 
@@ -121,7 +121,7 @@ class CreateTransferServiceTest extends TestCase
         $this->expectException(Exception::class);
 
         $this->accountRepositoryMock
-            ->shouldReceive('findByUserId')
+            ->shouldReceive('findById')
             ->andThrow(new NotFoundException());
 
         $this->unitOfWorkAdapterMock
