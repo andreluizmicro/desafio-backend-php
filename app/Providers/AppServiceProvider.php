@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Adapter\UnitOfWorkAdapter;
 use App\Client\AuthorizationClient;
 use App\Client\NotificationClient;
 use App\Gateway\AuthorizationGateway;
@@ -17,7 +18,6 @@ use Core\Domain\Gateway\NotificationGatewayInterface;
 use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\Repository\TransferRepositoryInterface;
 use Core\Domain\Repository\UserRepositoryInterface;
-use Core\Infrastructure\Domain\Adapter\UnitOfWorkAdapter;
 use GuzzleHttp\Client;
 use Illuminate\Support\ServiceProvider;
 
