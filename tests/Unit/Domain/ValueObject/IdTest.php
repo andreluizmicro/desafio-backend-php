@@ -14,7 +14,7 @@ class IdTest extends TestCase
 
     public function testShouldCreateNewId(): void
     {
-        $id= new Id(self::VALID_ID);
+        $id = new Id(self::VALID_ID);
         $this->assertEquals(self::VALID_ID, $id->value);
     }
 

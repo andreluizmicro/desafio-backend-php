@@ -14,7 +14,7 @@ class CpfTest extends TestCase
 
     public function testShouldCreateNewCpf(): void
     {
-        $cpf= new Cpf(self::VALID_CPF);
+        $cpf = new Cpf(self::VALID_CPF);
         $this->assertEquals(self::VALID_CPF, $cpf->value);
     }
 

@@ -16,7 +16,9 @@ use PHPUnit\Framework\TestCase;
 class CreateAccountServiceTest extends TestCase
 {
     private AccountRepositoryInterface $accountRepositoryMock;
+
     private UserRepositoryInterface $userRepositoryMock;
+
     private User $userMock;
 
     protected function setUp(): void

@@ -21,12 +21,19 @@ use PHPUnit\Framework\TestCase;
 class CreateTransferServiceTest extends TestCase
 {
     private AccountRepositoryInterface $accountRepositoryMock;
+
     private TransferRepositoryInterface $transferRepositoryMock;
+
     private AuthorizationGatewayInterface $authorizationGatewayMock;
+
     private NotificationGatewayInterface $notificationGatewayMock;
+
     private UnitOfWorkAdapterInterface $unitOfWorkAdapterMock;
+
     private User $payerMock;
+
     private User $payeeMock;
+
     private Account $accountMock;
 
     protected function setUp(): void

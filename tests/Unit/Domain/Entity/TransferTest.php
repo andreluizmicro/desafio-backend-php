@@ -14,6 +14,7 @@ use Tests\TestCase;
 class TransferTest extends TestCase
 {
     private User $payerUser;
+
     private User $payeeUser;
 
     protected function setUp(): void
@@ -95,7 +96,7 @@ class TransferTest extends TestCase
         );
         $payee->id = new Id(1);
 
-         new Transfer(
+        new Transfer(
             value: 100,
             payer: $payer,
             payee: $payee,
