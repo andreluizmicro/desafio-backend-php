@@ -27,6 +27,7 @@ docker-up-all:
 
 docker-migrate:
 	docker exec $(CONTAINER_NAME) php -d memory_limit=-1 artisan migrate
+	docker exec $(CONTAINER_NAME) php -d memory_limit=-1 artisan db:seed
 
 docker-test-coverage: docker-up
 	docker exec $(CONTAINER_NAME) composer test-coverage-html

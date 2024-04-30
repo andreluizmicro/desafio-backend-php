@@ -1,6 +1,42 @@
 ## Transfer microservice
 
-### Instalação e execução da API
+O Transfer Microservice (apelido) Api Responsável por realizar transferência entre usuários.
+
+pontos sobre a arquitetura atual:
+
+- A criação de usuários pode ser realizada por outra api, para que aqui sejam tratadas apenas dados de transferências, e não cadastro de usuários.
+- Evoluir para uma arquitetura baseada em microserviços para criar sistemas especialistas que tem foco em resolver um único problema.
+- Adição de fila para notificação de usuários
+
+Uma simples evolução futura:
+
+<img src="./public/images/architecture.png" width="1400">
+
+
+### Executando a aplicação passo a passo
+
+rodar os comandos abaixo:
+
+1- Realizar o build da aplicação:
+
+    make docker-build
+    
+2 - Instalação de dependências:
+
+    make docker-install
+
+3 - Executando aplicação:
+
+    make docker-up
+
+4 - Rodar as migrations e seeders (OBS: Apenas para auxiliar o projeto, seu uso deve ser evitado por riscos de segurança).
+
+    make docker-migrate
+
+
+
+
+### Comandos do arquivo Makefile
 
 Para auxiliar na configuração do projeto temos um arquivoo `Makefile` com ele é possível executar todas as configurações necessárias para que a aplicação funcione.
 
@@ -8,7 +44,7 @@ para executar os comando abaixo basta digitar antes do comando:
 
 Exemplo:
 
-    make docker-up
+    make <nome do comando definido no makefile>
 
 Principais comandos:
 
@@ -19,3 +55,7 @@ Principais comandos:
 - `docker-format`: Faz a formatação dos arquivos php
 - `docker-test`: Executa todos os testes da aplicação
 - `docker-test-coverage`: Executa os testes e gera um relatório de cobertura dos testes
+
+### Documentação
+
+A pasta `docs` contém o arquivo de collection para o postman que facilita a realização dos testes da API.
