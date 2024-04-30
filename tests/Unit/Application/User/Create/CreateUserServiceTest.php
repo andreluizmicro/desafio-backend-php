@@ -6,15 +6,21 @@ namespace Tests\Unit\Application\User\Create;
 
 use Core\Application\User\Create\CreateUserService;
 use Core\Application\User\Create\Input;
+use Core\Domain\Exception\UserException;
 use Core\Domain\Repository\UserRepositoryInterface;
+use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
 
 class CreateUserServiceTest extends TestCase
 {
-    public function testShouldCreateNewUser(): void
+    private Input $inputMock;
+
+    protected function setUp(): void
     {
-        $inputMock = Mockery::mock(Input::class, [
+        parent::setUp();
+
+        $this->inputMock = Mockery::mock(Input::class, [
             'name' => 'André Luiz da Silva',
             'email' => 'andreluiz@gmail.com',
             'cpf' => '984.390.410-98',
@@ -23,7 +29,7 @@ class CreateUserServiceTest extends TestCase
             'cnpj' => null,
         ]);
 
-        $inputMock
+        $this->inputMock
             ->shouldReceive('toArray')
             ->once()
             ->andReturn([
@@ -34,7 +40,10 @@ class CreateUserServiceTest extends TestCase
                 'user_type_id' => 1,
                 'cnpj' => null,
             ]);
+    }
 
+    public function testShouldCreateNewUser(): void
+    {
         $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
         $userRepositoryMock
             ->shouldReceive('create')
@@ -42,7 +51,35 @@ class CreateUserServiceTest extends TestCase
             ->andReturn(1);
 
         $createUserService = new CreateUserService($userRepositoryMock);
-        $output = $createUserService->execute($inputMock);
+        $output = $createUserService->execute($this->inputMock);
         $this->assertEquals(1, $output->id);
+    }
+
+    public function testShouldReturnUserExceptionWhenUserIsInvalid(): void
+    {
+        $this->expectException(UserException::class);
+
+        $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
+        $userRepositoryMock
+            ->shouldReceive('create')
+            ->once()
+            ->andThrow(new UserException());
+
+        $createUserService = new CreateUserService($userRepositoryMock);
+        $createUserService->execute($this->inputMock);
+    }
+
+    public function testShouldReturnUserExceptionWithInvalidArgument(): void
+    {
+        $this->expectException(Exception::class);
+
+        $userRepositoryMock = Mockery::mock(UserRepositoryInterface::class);
+        $userRepositoryMock
+            ->shouldReceive('create')
+            ->once()
+            ->andThrow(new Exception());
+
+        $createUserService = new CreateUserService($userRepositoryMock);
+        $createUserService->execute($this->inputMock);
     }
 }
