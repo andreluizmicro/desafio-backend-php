@@ -10,10 +10,11 @@ use Core\Domain\Entity\Transfer;
 use Core\Domain\Exception\AccountException;
 use Core\Domain\Exception\TransferException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
-use Core\Domain\Gateway\NotificationGatewayInterface;
 use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\Repository\TransferRepositoryInterface;
 use Core\Domain\ValueObject\Id;
+use Core\Infrastructure\Event\TransferCreated;
+use Shared\Domain\Adapter\EventAdapterInterface;
 use Throwable;
 
 class CreateTransferService
@@ -22,8 +23,8 @@ class CreateTransferService
         private AccountRepositoryInterface $accountRepository,
         private TransferRepositoryInterface $transferRepository,
         private AuthorizationGatewayInterface $authorizationGateway,
-        private NotificationGatewayInterface $notificationGateway,
         private UnitOfWorkAdapterInterface $unitOfWorkAdapter,
+        private EventAdapterInterface $eventAdapter,
     ) {
     }
 
@@ -51,22 +52,30 @@ class CreateTransferService
 
             $this->unitOfWorkAdapter->begin();
 
-            $transferId = $this->transferRepository->create($transfer);
+            $transfer->id = new Id(
+                value: $this->transferRepository->create($transfer)
+            );
 
             $this->updateUsersBalance($payer, $payee);
 
-            $this->notificationGateway->notify();
-
             $this->unitOfWorkAdapter->commit();
 
-            return new Output(
-                transferId: $transferId,
+            $output = new Output(
+                transferId: $transfer->id->value,
             );
 
         } catch (Throwable $th) {
             $this->unitOfWorkAdapter->rollback();
             throw TransferException::transferAuthorizedError($th->getMessage());
         }
+
+        $this->eventAdapter->publish(
+            new TransferCreated(
+                transfer: $transfer
+            )
+        );
+
+        return $output;
     }
 
     private function updateUsersBalance(Account $payer, Account $payee): void

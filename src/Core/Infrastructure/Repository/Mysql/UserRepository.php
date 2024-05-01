@@ -37,7 +37,7 @@ class UserRepository implements UserRepositoryInterface
             return $this->model->create(
                 $user->toArray()
             )->id;
-        }catch (UniqueConstraintViolationException $exception) {
+        } catch (UniqueConstraintViolationException $exception) {
             throw UserException::userAlreadyExists();
         } catch (Throwable $exception) {
             throw new UserException($exception->getMessage());

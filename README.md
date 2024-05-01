@@ -59,3 +59,8 @@ Principais comandos:
 ### Documentação
 
 A pasta `docs` contém o arquivo de collection para o postman que facilita a realização dos testes da API.
+
+### Configuração RabbitMQ
+
+1 - Criar uma exchange do tipo `fanout` chamada `transfer_exchange`.
+2 - Criar a queue chamada `transfers`

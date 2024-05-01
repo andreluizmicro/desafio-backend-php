@@ -47,4 +47,14 @@ class Transfer
     {
         return $this->payer->user->userType->value === UserType::shopkeeperUser->value;
     }
+
+    public function toArray(): array
+    {
+        return [
+            'id' => $this->id->value ?? null,
+            'payer_id' => $this->payer->id->value,
+            'payee_id' => $this->payee->id->value,
+            'value' => $this->value,
+        ];
+    }
 }
