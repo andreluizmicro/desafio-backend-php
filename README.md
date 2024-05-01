@@ -60,3 +60,7 @@ A pasta `docs` contém o arquivo de collection para o postman que facilita a rea
 
 1. Criar uma exchange do tipo `fanout` chamada `transfer_exchange`.
 2. Criar a queue chamada `transfers`
+3. Criar outra exchange do tipo `fanout` chamada `transfer_exchange_dlq`
+4. Criar a queue de Dead Letter Queue `transfers_dql`. 
+5. Lembre-se de fazer o bind das filas com as respectivas exchanges.
+
