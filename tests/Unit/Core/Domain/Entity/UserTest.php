@@ -24,6 +24,7 @@ class UserTest extends TestCase
         $this->assertEquals($data['user_type_id'], $user->getUserType());
         $this->assertNotEquals($data['password'], $user->toArray()['password']);
         $this->assertEquals($user->getUserType(), UserType::fromInt($data['user_type_id'])->value);
+        $this->assertNull($user->getCnpj());
     }
 
     public function testShouldReturnPersonExceptionWithInvalidNaturalPerson(): void

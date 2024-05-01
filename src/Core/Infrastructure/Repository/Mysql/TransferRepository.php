@@ -7,6 +7,7 @@ namespace Core\Infrastructure\Repository\Mysql;
 use Core\Domain\Entity\Transfer;
 use Core\Domain\Repository\TransferRepositoryInterface;
 use Core\Infrastructure\Repository\Models\Transfer as TransferModel;
+use Throwable;
 
 class TransferRepository implements TransferRepositoryInterface
 {
@@ -17,10 +18,14 @@ class TransferRepository implements TransferRepositoryInterface
 
     public function create(Transfer $transfer): int
     {
-        return $this->model->create([
-            'payer_id' => $transfer->getPayer()->getId()->value,
-            'payee_id' => $transfer->getPayee()->getId()->value,
-            'value' => $transfer->getValue(),
-        ])->id;
+        try {
+            return $this->model->create([
+                'payer_id' => $transfer->getPayer()->getId()->value,
+                'payee_id' => $transfer->getPayee()->getId()->value,
+                'value' => $transfer->getValue(),
+            ])->id;
+        } catch (Throwable $th) {
+            dd($th);
+        }
     }
 }

@@ -31,7 +31,7 @@ class AccountController extends Controller
         } catch (UserException $exception) {
             return response()->json(['message' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (Throwable $th) {
-            return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $th->getMessage()], $th->getCode());
         }
     }
 
@@ -42,8 +42,12 @@ class AccountController extends Controller
 
             return response()->json(['message' => 'deposit successfully completed'], Response::HTTP_CREATED);
 
-        } catch (Throwable) {
-            return response()->json(['message' => 'deposit error'], Response::HTTP_BAD_REQUEST);
+        } catch (Throwable $th) {
+            return response()->json([
+                'message' => sprintf('Deposit error: %s', $th->getMessage()),
+            ],
+                $th->getCode()
+            );
         }
     }
 }

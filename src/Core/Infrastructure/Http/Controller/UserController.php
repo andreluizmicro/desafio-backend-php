@@ -10,6 +10,7 @@ use Core\Domain\Exception\UserException;
 use Core\Infrastructure\Http\Request\User\CreateUserFormRequest;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use Throwable;
 
 class UserController extends Controller
 {
@@ -26,6 +27,8 @@ class UserController extends Controller
             return response()->json($userId, Response::HTTP_CREATED);
         } catch (UserException $exception) {
             return response()->json(['message' => $exception->getMessage()], Response::HTTP_CONFLICT);
+        } catch (Throwable $exception) {
+            return response()->json(['message' => $exception->getMessage()], $exception->getCode());
         }
     }
 }

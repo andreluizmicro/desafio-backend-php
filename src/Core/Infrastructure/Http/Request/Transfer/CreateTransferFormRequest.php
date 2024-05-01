@@ -17,7 +17,7 @@ class CreateTransferFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'value' => ['required'],
+            'value' => ['required', 'gt:0'],
             'payer' => 'required|different:payee',
             'payee' => 'required|numeric',
         ];

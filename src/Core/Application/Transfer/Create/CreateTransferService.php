@@ -8,7 +8,9 @@ use Core\Domain\Adapter\UnitOfWorkAdapterInterface;
 use Core\Domain\Entity\Account;
 use Core\Domain\Entity\Transfer;
 use Core\Domain\Exception\AccountException;
-use Core\Domain\Exception\TransferException;
+use Core\Domain\Exception\AuthorizationException;
+use Core\Domain\Exception\IdException;
+use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
 use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\Repository\TransferRepositoryInterface;
@@ -29,7 +31,10 @@ readonly class CreateTransferService
     }
 
     /**
-     * @throws TransferException
+     * @throws Throwable
+     * @throws NotFoundException
+     * @throws AuthorizationException
+     * @throws IdException
      * @throws AccountException
      */
     public function execute(Input $input): Output
@@ -62,7 +67,7 @@ readonly class CreateTransferService
 
         } catch (Throwable $th) {
             $this->unitOfWorkAdapter->rollback();
-            throw TransferException::transferAuthorizedError($th->getMessage());
+            throw $th;
         }
 
         $this->eventAdapter->publish(

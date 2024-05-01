@@ -40,7 +40,7 @@ readonly class AccountRepository implements AccountRepositoryInterface
             ])->id;
 
         } catch (Throwable) {
-            throw new AlreadyExistsException('This user already has an account');
+            throw AlreadyExistsException::alreadyExists('This user already has an account');
         }
     }
 
@@ -55,8 +55,8 @@ readonly class AccountRepository implements AccountRepositoryInterface
                 ->find($id->value);
 
             return $this->modelToEntity($data);
-        } catch (Throwable $th) {
-            throw new NotFoundException('User not found');
+        } catch (Throwable) {
+            throw NotFoundException::notFound('User not found');
         }
     }
 
@@ -84,7 +84,7 @@ readonly class AccountRepository implements AccountRepositoryInterface
     {
         return new Account(
             user: User::createUserFactory($data['user']->toArray()),
-            balance: $data['balance'],
+            balance: (float) $data['balance'],
             id: new Id($data['id']),
         );
     }

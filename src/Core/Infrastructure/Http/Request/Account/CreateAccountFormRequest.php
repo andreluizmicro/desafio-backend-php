@@ -17,16 +17,14 @@ class CreateAccountFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => ['required'],
+            'user_id' => ['required', 'integer'],
         ];
     }
 
     public function toDto(): Input
     {
-        $this->validated();
-
         return new Input(
-            userId: $this->request->get('user_id')
+            userId: $this->validated('user_id')
         );
     }
 }

@@ -50,6 +50,9 @@ class TransferTest extends TestCase
         );
 
         $this->assertEquals(100, $transfer->toArray()['value']);
+        $this->assertEquals($payer->getId(), $transfer->getPayer()->getId());
+        $this->assertEquals($payee->getId(), $transfer->getPayee()->getId());
+        $this->assertEquals(100, $transfer->getValue());
     }
 
     public function testShouldReturnAccountExceptionWithInvalidPayer(): void

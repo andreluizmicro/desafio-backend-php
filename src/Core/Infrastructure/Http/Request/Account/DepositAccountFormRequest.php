@@ -17,7 +17,7 @@ class DepositAccountFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'value' => ['required'],
+            'value' => ['required', 'numeric'],
         ];
     }
 
@@ -27,7 +27,7 @@ class DepositAccountFormRequest extends FormRequest
 
         return new Input(
             accountId: (int) $this->route('account_id'),
-            value: $this->validated('value'),
+            value: (float) $this->validated('value'),
         );
     }
 }

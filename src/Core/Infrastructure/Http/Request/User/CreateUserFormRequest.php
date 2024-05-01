@@ -17,12 +17,12 @@ class CreateUserFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'min:3', 'max:200'],
-            'email' => ['required', 'min:3', 'max:200'],
-            'cpf' => ['required'],
-            'password' => ['required'],
-            'cnpj' => [],
-            'user_type_id' => ['required'],
+            'name' => ['required', 'string', 'min:3', 'max:200'],
+            'email' => ['required', 'string', 'min:3', 'max:200'],
+            'cpf' => ['required', 'string'],
+            'password' => ['required', 'string'],
+            'cnpj' => ['string'],
+            'user_type_id' => ['required', 'integer'],
         ];
     }
 
