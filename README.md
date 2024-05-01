@@ -2,13 +2,11 @@
 
 O Transfer Microservice (apelido) Api Responsável por realizar transferência entre usuários.
 
-pontos sobre a arquitetura atual:
+## Repositório do Worker
 
-- A criação de usuários pode ser realizada por outra api, para que aqui sejam tratadas apenas dados de transferências, e não cadastro de usuários.
-- Evoluir para uma arquitetura baseada em microserviços para criar sistemas especialistas que tem foco em resolver um único problema.
-- Adição de fila para notificação de usuários
+https://github.com/andreluizmicro/go-transfer-worker
 
-Uma simples evolução futura:
+## Arquitetura
 
 <img src="./public/images/architecture.png" width="1400">
 
@@ -32,8 +30,6 @@ rodar os comandos abaixo:
 4 - Rodar as migrations e seeders (OBS: Apenas para auxiliar o projeto, seu uso deve ser evitado por riscos de segurança).
 
     make docker-migrate
-
-
 
 
 ### Comandos do arquivo Makefile
