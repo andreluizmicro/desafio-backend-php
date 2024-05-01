@@ -1,0 +1,17 @@
+sqlite3 transfer_test
+sqlite3 transfer_test.db
+sqlite3 transfer_test.db;
+tables;
+sqlite3
+sqlite3;
+sqlite3
+sqlite3;
+sqlite3 transfers
+sqlite3 transfers.db
+sqlite3 transfers.db;
+.tables
+ls
+.html
+.help;
+.help
+help

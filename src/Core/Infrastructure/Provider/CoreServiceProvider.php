@@ -32,6 +32,7 @@ class CoreServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->mergeConfigFrom(__DIR__.'/../Config/config.php', 'transfer_ms');
+        $this->loadMigrationsFrom(__DIR__.'/../Database/Migration/');
         $this->registerClients();
         $this->registerQueues();
     }
