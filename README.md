@@ -2,13 +2,11 @@
 
 O Transfer Microservice (apelido) Api Responsável por realizar transferência entre usuários.
 
-pontos sobre a arquitetura atual:
+## Repositório do Worker
 
-- A criação de usuários pode ser realizada por outra api, para que aqui sejam tratadas apenas dados de transferências, e não cadastro de usuários.
-- Evoluir para uma arquitetura baseada em microserviços para criar sistemas especialistas que tem foco em resolver um único problema.
-- Adição de fila para notificação de usuários
+https://github.com/andreluizmicro/go-transfer-worker
 
-Uma simples evolução futura:
+## Arquitetura
 
 <img src="./public/images/architecture.png" width="1400">
 
@@ -34,8 +32,6 @@ rodar os comandos abaixo:
     make docker-migrate
 
 
-
-
 ### Comandos do arquivo Makefile
 
 Para auxiliar na configuração do projeto temos um arquivoo `Makefile` com ele é possível executar todas as configurações necessárias para que a aplicação funcione.
@@ -59,3 +55,8 @@ Principais comandos:
 ### Documentação
 
 A pasta `docs` contém o arquivo de collection para o postman que facilita a realização dos testes da API.
+
+### Configuração RabbitMQ
+
+1 - Criar uma exchange do tipo `fanout` chamada `transfer_exchange`.
+2 - Criar a queue chamada `transfers`

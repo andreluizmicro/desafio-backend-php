@@ -12,12 +12,12 @@ use Core\Domain\Entity\User;
 use Core\Domain\Exception\AccountException;
 use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Gateway\AuthorizationGatewayInterface;
-use Core\Domain\Gateway\NotificationGatewayInterface;
 use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\Repository\TransferRepositoryInterface;
 use Exception;
 use Mockery;
 use PHPUnit\Framework\TestCase;
+use Shared\Domain\Adapter\EventAdapterInterface;
 
 class CreateTransferServiceTest extends TestCase
 {
@@ -27,9 +27,9 @@ class CreateTransferServiceTest extends TestCase
 
     private AuthorizationGatewayInterface $authorizationGatewayMock;
 
-    private NotificationGatewayInterface $notificationGatewayMock;
-
     private UnitOfWorkAdapterInterface $unitOfWorkAdapterMock;
+
+    private EventAdapterInterface $eventAdapterMock;
 
     protected function setUp(): void
     {
@@ -38,8 +38,8 @@ class CreateTransferServiceTest extends TestCase
         $this->accountRepositoryMock = Mockery::mock(AccountRepositoryInterface::class);
         $this->transferRepositoryMock = Mockery::mock(TransferRepositoryInterface::class);
         $this->authorizationGatewayMock = Mockery::mock(AuthorizationGatewayInterface::class);
-        $this->notificationGatewayMock = Mockery::mock(NotificationGatewayInterface::class);
         $this->unitOfWorkAdapterMock = Mockery::mock(UnitOfWorkAdapterInterface::class);
+        $this->eventAdapterMock = Mockery::mock(EventAdapterInterface::class);
     }
 
     public function testShouldCreateTransfer(): void
@@ -89,20 +89,20 @@ class CreateTransferServiceTest extends TestCase
             ->shouldReceive('updateUserBalance')
             ->times(2);
 
-        $this->notificationGatewayMock
-            ->shouldReceive('notify')
-            ->once();
-
         $this->unitOfWorkAdapterMock
             ->shouldReceive('commit')
+            ->once();
+
+        $this->eventAdapterMock
+            ->shouldReceive('publish')
             ->once();
 
         $createTransferService = new CreateTransferService(
             $this->accountRepositoryMock,
             $this->transferRepositoryMock,
             $this->authorizationGatewayMock,
-            $this->notificationGatewayMock,
             $this->unitOfWorkAdapterMock,
+            $this->eventAdapterMock
         );
 
         $output = $createTransferService->execute(
@@ -132,8 +132,8 @@ class CreateTransferServiceTest extends TestCase
             $this->accountRepositoryMock,
             $this->transferRepositoryMock,
             $this->authorizationGatewayMock,
-            $this->notificationGatewayMock,
             $this->unitOfWorkAdapterMock,
+            $this->eventAdapterMock
         );
 
         $createTransferService->execute(
@@ -153,8 +153,8 @@ class CreateTransferServiceTest extends TestCase
             $this->accountRepositoryMock,
             $this->transferRepositoryMock,
             $this->authorizationGatewayMock,
-            $this->notificationGatewayMock,
             $this->unitOfWorkAdapterMock,
+            $this->eventAdapterMock
         );
 
         $createTransferService->execute(

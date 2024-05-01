@@ -25,6 +25,8 @@ class TransferController extends Controller
 
             return response()->json($transferId, Response::HTTP_CREATED);
         } catch (Throwable $th) {
+            dd($th);
+
             return response()->json(['message' => 'Transaction error'], Response::HTTP_BAD_REQUEST);
         }
     }
