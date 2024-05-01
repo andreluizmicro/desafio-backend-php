@@ -8,7 +8,6 @@ use Core\Domain\Entity\Account;
 use Core\Domain\Entity\Transfer;
 use Core\Domain\Entity\User;
 use Core\Domain\Exception\AccountException;
-use Core\Domain\ValueObject\Id;
 use Tests\TestCase;
 
 class TransferTest extends TestCase
@@ -36,13 +35,13 @@ class TransferTest extends TestCase
             user: $this->payerUser,
             balance: 100,
         );
-        $payer->id = new Id(1);
+        $payer->setId(1);
 
         $payee = new Account(
             user: $this->payeeUser,
             balance: 100,
         );
-        $payee->id = new Id(2);
+        $payee->setId(2);
 
         $transfer = new Transfer(
             value: 100,
@@ -60,7 +59,7 @@ class TransferTest extends TestCase
         $invalidPayer = User::createUserFactory(
             $this->getUserDataProvider(2, 2, '28.019.528/0001-21')
         );
-        $invalidPayer->id = new Id(1);
+        $invalidPayer->setId(1);
 
         $accountWithInvalidPayer = new Account(
             user: $invalidPayer,
@@ -71,7 +70,7 @@ class TransferTest extends TestCase
             user: $this->payeeUser,
             balance: 100,
         );
-        $payee->id = new Id(2);
+        $payee->setId(2);
 
         new Transfer(
             value: 100,

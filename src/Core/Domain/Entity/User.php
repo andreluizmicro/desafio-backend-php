@@ -25,13 +25,13 @@ class User
      * @throws PersonException
      */
     public function __construct(
-        public Name $name,
-        public Cpf $cpf,
-        public Email $email,
-        public Password $password,
-        public UserType $userType,
-        public ?Id $id = null,
-        public ?Cnpj $cnpj = null,
+        private readonly Name $name,
+        private readonly Cpf $cpf,
+        private readonly Email $email,
+        private readonly Password $password,
+        private readonly UserType $userType,
+        private ?Id $id = null,
+        private readonly ?Cnpj $cnpj = null,
     ) {
         $this->id = $this->id ?? null;
         $this->validate();
@@ -96,5 +96,48 @@ class User
     private function isShopkeeperUser(): bool
     {
         return $this->userType->value === UserType::shopkeeperUser->value;
+    }
+
+    /**
+     * @throws IdException
+     */
+    public function setId(int $value): void
+    {
+        $this->id = new Id($value);
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id->value ?? null;
+    }
+
+    public function getName(): string
+    {
+        return $this->name->value;
+    }
+
+    public function getEmail(): string
+    {
+        return $this->email->value;
+    }
+
+    public function getCpf(): string
+    {
+        return $this->cpf->value;
+    }
+
+    public function getCnpj(): ?string
+    {
+        return $this->cnpj->value ?? null;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password->value;
+    }
+
+    public function getUserType(): int
+    {
+        return $this->userType->value;
     }
 }

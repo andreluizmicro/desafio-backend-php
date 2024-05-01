@@ -21,10 +21,10 @@ use Core\Domain\ValueObject\Id;
 use Core\Infrastructure\Repository\Models\Account as AccountModel;
 use Throwable;
 
-class AccountRepository implements AccountRepositoryInterface
+readonly class AccountRepository implements AccountRepositoryInterface
 {
     public function __construct(
-        private readonly AccountModel $model
+        private AccountModel $model
     ) {
     }
 
@@ -35,8 +35,8 @@ class AccountRepository implements AccountRepositoryInterface
     {
         try {
             return $this->model->create([
-                'user_id' => $account->user->id->value,
-                'balance' => $account->balance,
+                'user_id' => $account->user->getId(),
+                'balance' => $account->getBalance(),
             ])->id;
 
         } catch (Throwable) {
@@ -62,7 +62,7 @@ class AccountRepository implements AccountRepositoryInterface
 
     public function updateUserBalance(Account $account): void
     {
-        $this->model->where('id', $account->id->value)->update(['balance' => $account->balance]);
+        $this->model->where('id', $account->getId()->value)->update(['balance' => $account->getBalance()]);
     }
 
     public function existsById(Id $id): bool

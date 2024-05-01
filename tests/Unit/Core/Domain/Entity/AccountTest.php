@@ -30,7 +30,7 @@ class AccountTest extends TestCase
             balance: $balance,
         );
 
-        $this->assertEquals($balance, $account->balance);
+        $this->assertEquals($balance, $account->getBalance());
     }
 
     public function testShouldReturnAccountExceptionWithInvalidBalance(): void
@@ -52,7 +52,7 @@ class AccountTest extends TestCase
         $credit = 1500;
 
         $account->creditAccount($credit);
-        $this->assertEquals($credit, $account->balance);
+        $this->assertEquals($credit, $account->getBalance());
     }
 
     public function testShouldReturnAccountExceptionWithInvalidValueToCreditAccount(): void
@@ -72,7 +72,7 @@ class AccountTest extends TestCase
             balance: 1500,
         );
         $account->debitAccount(500);
-        $this->assertEquals(1000, $account->balance);
+        $this->assertEquals(1000, $account->getBalance());
     }
 
     public function testShouldReturnAccountExceptionWithInsufficientBalance(): void

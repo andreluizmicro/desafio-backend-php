@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Core\Domain\Entity;
 
 use Core\Domain\Exception\AccountException;
+use Core\Domain\Exception\IdException;
 use Core\Domain\ValueObject\Id;
 
 class Account
@@ -15,9 +16,9 @@ class Account
      * @throws AccountException
      */
     public function __construct(
-        public User $user,
-        public ?float $balance = self::MIN_BALANCE,
-        public ?Id $id = null,
+        public readonly User $user,
+        private ?float $balance = self::MIN_BALANCE,
+        private ?Id $id = null,
     ) {
         $this->id = $this->id ?? null;
         $this->validate();
@@ -56,6 +57,24 @@ class Account
             throw AccountException::insufficientBalance();
         }
         $this->balance -= $value;
+    }
+
+    /**
+     * @throws IdException
+     */
+    public function setId(int $value): void
+    {
+        $this->id = new Id($value);
+    }
+
+    public function getId(): Id
+    {
+        return $this->id;
+    }
+
+    public function getBalance(): float
+    {
+        return $this->balance;
     }
 
     private function isInsufficientBalance(): bool

@@ -18,9 +18,9 @@ class TransferRepository implements TransferRepositoryInterface
     public function create(Transfer $transfer): int
     {
         return $this->model->create([
-            'payer_id' => $transfer->payer->id->value,
-            'payee_id' => $transfer->payee->id->value,
-            'value' => $transfer->value,
+            'payer_id' => $transfer->getPayer()->getId()->value,
+            'payee_id' => $transfer->getPayee()->getId()->value,
+            'value' => $transfer->getValue(),
         ])->id;
     }
 }

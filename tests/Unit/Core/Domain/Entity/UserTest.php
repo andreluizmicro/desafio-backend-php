@@ -16,14 +16,14 @@ class UserTest extends TestCase
         $data = $this->getUserDataProvider();
         $user = User::createUserFactory($data);
 
-        $this->assertNull($user->id);
-        $this->assertEquals($data['name'], $user->name->value);
-        $this->assertEquals($data['cpf'], $user->cpf->value);
-        $this->assertEquals($data['email'], $user->email->value);
-        $this->assertNotNull($data['password'], $user->password->value);
-        $this->assertEquals($data['user_type_id'], $user->userType->value);
+        $this->assertNull($user->getId());
+        $this->assertEquals($data['name'], $user->getName());
+        $this->assertEquals($data['cpf'], $user->getCpf());
+        $this->assertEquals($data['email'], $user->getEmail());
+        $this->assertNotNull($data['password'], $user->getPassword());
+        $this->assertEquals($data['user_type_id'], $user->getUserType());
         $this->assertNotEquals($data['password'], $user->toArray()['password']);
-        $this->assertEquals($user->userType->value, UserType::fromInt($data['user_type_id'])->value);
+        $this->assertEquals($user->getUserType(), UserType::fromInt($data['user_type_id'])->value);
     }
 
     public function testShouldReturnPersonExceptionWithInvalidNaturalPerson(): void

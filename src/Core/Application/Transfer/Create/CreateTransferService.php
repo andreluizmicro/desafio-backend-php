@@ -17,7 +17,7 @@ use Core\Infrastructure\Event\TransferCreated;
 use Shared\Domain\Adapter\EventAdapterInterface;
 use Throwable;
 
-class CreateTransferService
+readonly class CreateTransferService
 {
     public function __construct(
         private AccountRepositoryInterface $accountRepository,
@@ -52,17 +52,13 @@ class CreateTransferService
 
             $this->unitOfWorkAdapter->begin();
 
-            $transfer->id = new Id(
-                value: $this->transferRepository->create($transfer)
-            );
+            $transfer->setId($this->transferRepository->create($transfer));
 
             $this->updateUsersBalance($payer, $payee);
 
             $this->unitOfWorkAdapter->commit();
 
-            $output = new Output(
-                transferId: $transfer->id->value,
-            );
+            $output = new Output($transfer->getId());
 
         } catch (Throwable $th) {
             $this->unitOfWorkAdapter->rollback();

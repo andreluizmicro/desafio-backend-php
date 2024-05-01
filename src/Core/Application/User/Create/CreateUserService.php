@@ -10,7 +10,7 @@ use Core\Domain\Repository\UserRepositoryInterface;
 use Exception;
 use InvalidArgumentException;
 
-class CreateUserService
+readonly class CreateUserService
 {
     public function __construct(
         private UserRepositoryInterface $userRepository,

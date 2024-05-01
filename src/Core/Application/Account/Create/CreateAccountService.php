@@ -14,7 +14,7 @@ use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\Repository\UserRepositoryInterface;
 use Core\Domain\ValueObject\Id;
 
-class CreateAccountService
+readonly class CreateAccountService
 {
     private const DEFAULT_BALANCE = 0;
 

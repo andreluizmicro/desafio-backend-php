@@ -20,10 +20,10 @@ use Exception;
 use Illuminate\Database\UniqueConstraintViolationException;
 use Throwable;
 
-class UserRepository implements UserRepositoryInterface
+readonly class UserRepository implements UserRepositoryInterface
 {
     public function __construct(
-        private readonly UserModel $model
+        private UserModel $model
     ) {
     }
 
