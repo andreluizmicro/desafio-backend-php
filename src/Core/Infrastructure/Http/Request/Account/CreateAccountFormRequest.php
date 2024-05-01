@@ -23,6 +23,8 @@ class CreateAccountFormRequest extends FormRequest
 
     public function toDto(): Input
     {
+        $this->validated();
+
         return new Input(
             userId: $this->request->get('user_id')
         );

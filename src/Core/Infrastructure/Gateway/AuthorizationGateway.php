@@ -11,7 +11,7 @@ use Core\Infrastructure\Client\AuthorizationClient;
 use Illuminate\Http\Response;
 use Throwable;
 
-class AuthorizationGateway implements AuthorizationGatewayInterface
+readonly class AuthorizationGateway implements AuthorizationGatewayInterface
 {
     public function __construct(
         private AuthorizationClient $client,

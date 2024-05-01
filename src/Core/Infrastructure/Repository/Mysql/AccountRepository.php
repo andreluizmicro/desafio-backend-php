@@ -40,7 +40,7 @@ readonly class AccountRepository implements AccountRepositoryInterface
             ])->id;
 
         } catch (Throwable) {
-            throw new AlreadyExistsException('Account Already exists');
+            throw new AlreadyExistsException('This user already has an account');
         }
     }
 

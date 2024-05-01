@@ -14,7 +14,7 @@ use Illuminate\Http\Response;
 class UserController extends Controller
 {
     public function __construct(
-        private CreateUserService $createUserService,
+        private readonly CreateUserService $createUserService,
     ) {
     }
 

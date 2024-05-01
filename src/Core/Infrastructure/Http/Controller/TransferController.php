@@ -14,20 +14,18 @@ use Throwable;
 class TransferController extends Controller
 {
     public function __construct(
-        private CreateTransferService $createTransferService,
+        private readonly CreateTransferService $createTransferService,
     ) {
     }
 
     public function create(CreateTransferFormRequest $request): JsonResponse
     {
         try {
-            $transferId = $this->createTransferService->execute($request->toDto());
+            $transferIdCreated = $this->createTransferService->execute($request->toDto());
 
-            return response()->json($transferId, Response::HTTP_CREATED);
+            return response()->json(['transfer_id' => $transferIdCreated->transferId], Response::HTTP_CREATED);
         } catch (Throwable $th) {
-            dd($th);
-
-            return response()->json(['message' => 'Transaction error'], Response::HTTP_BAD_REQUEST);
+            return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
         }
     }
 }

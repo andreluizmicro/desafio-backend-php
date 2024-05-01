@@ -8,7 +8,7 @@ class AccountException extends DomainException
 {
     public static function accountAlreadyExists(): self
     {
-        return new self('Account Already Exists');
+        return new self('This user already has an account');
     }
 
     public static function insufficientBalance(): self

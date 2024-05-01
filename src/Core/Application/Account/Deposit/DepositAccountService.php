@@ -10,7 +10,7 @@ use Core\Domain\Exception\NotFoundException;
 use Core\Domain\Repository\AccountRepositoryInterface;
 use Core\Domain\ValueObject\Id;
 
-class DepositAccountService
+readonly class DepositAccountService
 {
     public function __construct(
         private AccountRepositoryInterface $accountRepository,

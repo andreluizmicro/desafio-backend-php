@@ -17,17 +17,17 @@ use Throwable;
 class AccountController extends Controller
 {
     public function __construct(
-        private CreateAccountService $createAccountService,
-        private DepositAccountService $depositAccountService,
+        private readonly CreateAccountService $createAccountService,
+        private readonly DepositAccountService $depositAccountService,
     ) {
     }
 
     public function create(CreateAccountFormRequest $request): JsonResponse
     {
         try {
-            $accountId = $this->createAccountService->execute($request->toDto());
+            $accountIdCreated = $this->createAccountService->execute($request->toDto());
 
-            return response()->json($accountId, Response::HTTP_CREATED);
+            return response()->json(['account_id' => $accountIdCreated->accountId], Response::HTTP_CREATED);
         } catch (UserException $exception) {
             return response()->json(['message' => $exception->getMessage()], Response::HTTP_NOT_FOUND);
         } catch (Throwable $th) {
@@ -35,15 +35,15 @@ class AccountController extends Controller
         }
     }
 
-    public function deposit(DepositAccountFormRequest $request)
+    public function deposit(DepositAccountFormRequest $request): JsonResponse
     {
         try {
-            $output = $this->depositAccountService->execute($request->toDto());
+            $this->depositAccountService->execute($request->toDto());
 
-            return response()->json($output, Response::HTTP_CREATED);
+            return response()->json(['message' => 'deposit successfully completed'], Response::HTTP_CREATED);
 
-        } catch (Throwable $th) {
-            return response()->json(['success' => false], Response::HTTP_BAD_REQUEST);
+        } catch (Throwable) {
+            return response()->json(['message' => 'deposit error'], Response::HTTP_BAD_REQUEST);
         }
     }
 }

@@ -23,9 +23,11 @@ class DepositAccountFormRequest extends FormRequest
 
     public function toDto(): Input
     {
+        $this->validated();
+
         return new Input(
             accountId: (int) $this->route('account_id'),
-            value: $this->request->get('value'),
+            value: $this->validated('value'),
         );
     }
 }

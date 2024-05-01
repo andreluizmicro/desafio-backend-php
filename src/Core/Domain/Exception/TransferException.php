@@ -8,6 +8,6 @@ class TransferException extends DomainException
 {
     public static function transferAuthorizedError(string $message): self
     {
-        return new self(sprintf('Error: %s', $message));
+        return new self($message);
     }
 }
