@@ -16,8 +16,6 @@ use Core\Domain\Exception\UserException;
 use Core\Domain\Repository\UserRepositoryInterface;
 use Core\Domain\ValueObject\Id;
 use Core\Infrastructure\Repository\Models\User as UserModel;
-use Exception;
-use Illuminate\Database\UniqueConstraintViolationException;
 use Throwable;
 
 readonly class UserRepository implements UserRepositoryInterface
@@ -27,21 +25,19 @@ readonly class UserRepository implements UserRepositoryInterface
     ) {
     }
 
-    /**
-     * @throws UserException
-     * @throws Exception
-     */
     public function create(User $user): int
     {
-        try {
-            return $this->model->create(
-                $user->toArray()
-            )->id;
-        } catch (UniqueConstraintViolationException $exception) {
-            throw UserException::userAlreadyExists();
-        } catch (Throwable $exception) {
-            throw new UserException($exception->getMessage());
+        $userFound = $this->model
+            ->where('email', $user->getEmail())
+            ->get()->first();
+
+        if (! is_null($userFound)) {
+            return $userFound->id;
         }
+
+        return $this->model->create(
+            $user->toArray()
+        )->id;
     }
 
     /**

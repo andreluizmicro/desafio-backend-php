@@ -9,7 +9,8 @@ class CpfException extends UserException
     public static function invalidCpf(string $number): self
     {
         return new self(
-            sprintf('The cpf %s is invalid.', $number)
+            sprintf('The cpf %s is invalid.', $number),
+            422
         );
     }
 }

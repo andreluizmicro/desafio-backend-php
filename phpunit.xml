@@ -23,5 +23,13 @@
     <include>
       <directory suffix=".php">src</directory>
     </include>
+    <exclude>
+        <directory suffix=".php">./src/Core/Infrastructure/Repository/Models</directory>
+        <directory suffix=".php">./src/Core/Infrastructure/Client</directory>
+        <directory suffix=".php">./src/Core/Infrastructure/Adapter</directory>
+        <directory suffix=".php">./src/Core/Infrastructure/Provider</directory>
+        <directory suffix=".php">./src/Core/Infrastructure/Listener</directory>
+        <directory suffix=".php">./src/Shared/Infrastructure/Queue</directory>
+    </exclude>
   </source>
 </phpunit>

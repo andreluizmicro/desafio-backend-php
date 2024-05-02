@@ -26,8 +26,8 @@
             "App\\": "app/",
             "Core\\": "src/Core",
             "Shared\\": "src/Shared",
-            "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Factories\\": "src/Core/Infrastructure/Database/Factory/",
+            "Database\\Seeders\\": "src/Core/Infrastructure/Database/Seeder/"
         }
     },
     "autoload-dev": {

@@ -30,7 +30,7 @@ readonly class CreateUserService
                 id: $id,
             );
         } catch (UserException $exception) {
-            throw new UserException($exception->getMessage());
+            throw $exception;
         } catch (Exception $exception) {
             throw new InvalidArgumentException($exception->getMessage());
         }

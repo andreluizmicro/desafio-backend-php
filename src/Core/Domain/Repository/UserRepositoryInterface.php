@@ -10,9 +10,6 @@ use Core\Domain\ValueObject\Id;
 
 interface UserRepositoryInterface
 {
-    /**
-     * @throws UserException
-     */
     public function create(User $user): int;
 
     /**
