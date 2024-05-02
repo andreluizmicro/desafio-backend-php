@@ -15,7 +15,7 @@ docker-bash:
 docker-format: docker-up
 	docker exec -t $(CONTAINER_NAME) composer format
 
-docker-test:
+docker-test: docker-up
 ifdef FILTER
 	docker exec -t $(CONTAINER_NAME) php artisan test --env=test --filter="$(FILTER)"
 else
