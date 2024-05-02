@@ -1,18 +1,22 @@
-name: Continuos Integration
+name: PHP Tests
+
+on: [push, pull_request]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Build the Docker image
-        run:
-          make docker-build
-          make docker-test
+    - name: Checkout repository
+      uses: actions/checkout@v2
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.0' # Ou a versão que você está usando
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-suggest
+
+    - name: Run tests
+      run: vendor/bin/phpunit
