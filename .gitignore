@@ -17,7 +17,6 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
-.docker
 .bash_history
 
 # Windows Installer files

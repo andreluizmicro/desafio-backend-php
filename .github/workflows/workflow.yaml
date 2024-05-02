@@ -1,0 +1,31 @@
+name: PHP Tests
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2.1'
+
+    - name: Install dependencies
+      run: composer install --no-progress --no-suggest
+
+    - name: Run tests
+      run: vendor/bin/phpunit
+
+    - name: Run tests with coverage
+      run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: coverage-report
+        path: coverage.xml
